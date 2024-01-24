@@ -1,0 +1,39 @@
+name: Pipeline CI
+
+on:
+  workflow_call:
+    stage:
+      required: true
+      type: string    
+    aws-access-key:
+      required: true
+      type: string
+    aws-secret-key:
+      required: true
+      type: string
+
+env:
+  STAGE: ${{ inputs.stage }}
+  AWS_ACCESS_KEY: ${{ inputs.aws-access-key }}
+  AWS_SECRET_KEY: ${{ inputs.aws-secret-key }}
+  
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '8.0.x' ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        working-directory: OrderService/tests/OrderService.UnitTests
+        run: dotnet test --no-restore --verbosity minimal
