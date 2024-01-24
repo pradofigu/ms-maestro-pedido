@@ -10,6 +10,4 @@ jobs:
     if: github.event.pull_request.draft == false
     uses: ./.github/workflows/pipeline-ci.yaml
     with:
-      stage: hom
-      aws-access-key: ${{ secrets.ACCESS_KEY }}
-      aws-secret-key: ${{ secrets.SECRET_KEY }}
+      stage: hom      

@@ -5,17 +5,12 @@ on:
     inputs:       
       stage:
         required: true
-        type: string
-    secrets:
-      aws-access-key:
-        required: true        
-      aws-secret-key:
-        required: true        
+        type: string        
 
 env:
   STAGE: ${{ inputs.stage }}
-  AWS_ACCESS_KEY: ${{ inputs.aws-access-key }}
-  AWS_SECRET_KEY: ${{ inputs.aws-secret-key }}
+  AWS_ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+  AWS_SECRET_KEY: ${{ secrets.SECRET_KEY }}
   
 jobs:
   unit-test:
