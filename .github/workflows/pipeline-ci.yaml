@@ -2,15 +2,16 @@ name: Pipeline CI
 
 on:
   workflow_call:
-    stage:
-      required: true
-      type: string    
-    aws-access-key:
-      required: true
-      type: string
-    aws-secret-key:
-      required: true
-      type: string
+    inputs:       
+      stage:
+        required: true
+        type: string
+      aws-access-key:
+        required: true
+        type: string
+      aws-secret-key:
+        required: true
+        type: string
 
 env:
   STAGE: ${{ inputs.stage }}
