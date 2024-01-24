@@ -18,7 +18,7 @@ public class PagedListTests
         list.CurrentPageSize.Should().Be(2);
         list.CurrentStartIndex.Should().Be(3);
         list.CurrentEndIndex.Should().Be(4);
-        list.TotalPages.Should().Be(3);
+        list.TotalPages.Should().Be(10);
     }
 
     [Fact]

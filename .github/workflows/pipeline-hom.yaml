@@ -1,8 +1,9 @@
 name: Pipeline - HOM
 
 on:
-  push:    
-    branches: [feature/api]
+  pull_request:
+    types: [opened, reopened, ready_for_review, edited, synchronize]
+    branches: [develop, release/**]
     
 jobs:
   build:
