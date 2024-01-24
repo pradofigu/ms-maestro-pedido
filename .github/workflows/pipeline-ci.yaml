@@ -6,12 +6,11 @@ on:
       stage:
         required: true
         type: string
+    secrets:
       aws-access-key:
-        required: true
-        type: string
+        required: true        
       aws-secret-key:
-        required: true
-        type: string
+        required: true        
 
 env:
   STAGE: ${{ inputs.stage }}
