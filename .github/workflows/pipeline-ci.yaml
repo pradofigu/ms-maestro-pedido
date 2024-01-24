@@ -13,7 +13,7 @@ env:
   AWS_SECRET_KEY: ${{ secrets.SECRET_KEY }}
   
 jobs:
-  unit-test:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,11 +24,17 @@ jobs:
         uses: actions/setup-dotnet@v1.7.2
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-
+          
       - name: Install dependencies
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
-      - name: Test
+      - name: Unit Test
         working-directory: OrderService/tests/OrderService.UnitTests
+        run: dotnet test --no-restore --verbosity minimal
+      - name: Functional Test
+        working-directory: OrderService/tests/OrderService.FunctionalTests
+        run: dotnet test --no-restore --verbosity minimal
+      - name: Integration Test
+        working-directory: OrderService/tests/OrderService.IntegrationTests
         run: dotnet test --no-restore --verbosity minimal
