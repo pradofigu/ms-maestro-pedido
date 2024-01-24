@@ -23,7 +23,7 @@ public class AddOrderCommandTests : TestBase
             .FirstOrDefaultAsync(o => o.Id == orderReturned.Id));
 
         // Assert
-        orderReturned.Number.Should().Be(orderOne.Number);
+        orderReturned.Number.Should().Be(1);
         orderReturned.Status.Should().Be(orderOne.Status);
         orderReturned.CustomerNotes.Should().Be(orderOne.CustomerNotes);
         orderReturned.TotalAmount.Should().Be(orderOne.TotalAmount);
