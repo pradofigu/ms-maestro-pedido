@@ -83,5 +83,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.sonar-token-order }}
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"pradofigu_ms-maestro-pedido" /o:"pradofigu" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.dotcover.reportsPaths=dotCover.Output.html         
-          dotnet dotcover test OrderService/tests/OrderService.UnitTests/ --no-restore" --dcReportType=HTML
+          dotnet dotcover test OrderService/tests/OrderService.UnitTests/ --no-restore --dcReportType=HTML
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="$SONAR_TOKEN"
