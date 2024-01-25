@@ -6,6 +6,8 @@ on:
       stage:
         required: true
         type: string
+    secrets:
+      sonar-token-order:
 
 env:
   STAGE: ${{ inputs.stage }}   
@@ -70,8 +72,9 @@ jobs:
         run: dotnet restore
       - name: Test and Analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}          
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.sonar-token-order }}
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"pradofigu_ms-maestro-pedido" /o:"pradofigu" /d:sonar.token="c494cda2f7e5dbaf6a9e2b73c6d72275c62523f5" /d:sonar.host.url="https://sonarcloud.io"
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"pradofigu_ms-maestro-pedido" /o:"pradofigu" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet test OrderService/tests/OrderService.UnitTests/ --no-restore --verbosity minimal
-          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="c494cda2f7e5dbaf6a9e2b73c6d72275c62523f5"
+          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
