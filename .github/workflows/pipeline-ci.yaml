@@ -70,7 +70,9 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar-scanner
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-        run: dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+        run: |
+          dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+          dotnet tool install --global dotnet-coverage
       - name: Debug SonarCloud Scanner Installation
         run: ls -R .sonar/scanner
       - name: Install dependencies
@@ -80,8 +82,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.sonar-token-order }}
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"pradofigu_ms-maestro-pedido" /o:"pradofigu" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet test OrderService/tests/OrderService.UnitTests/ --no-restore
-          dotnet test OrderService/tests/OrderService.FunctionalTests/ --no-restore
-          dotnet test OrderService/tests/OrderService.IntegrationTests/ --no-restore
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"pradofigu_ms-maestro-pedido" /o:"pradofigu" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml          
+          dotnet-coverage collect "dotnet test OrderService/tests/OrderService.UnitTests/ --no-restore" -f xml -o "coverage.xml" 
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="$SONAR_TOKEN"
