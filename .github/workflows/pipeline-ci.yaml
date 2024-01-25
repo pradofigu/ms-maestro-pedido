@@ -72,7 +72,7 @@ jobs:
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: |
           dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
-          dotnet tool install --global dotnet-coverage
+          dotnet tool install --global JetBrains.dotCover.GlobalTool
       - name: Debug SonarCloud Scanner Installation
         run: ls -R .sonar/scanner
       - name: Install dependencies
@@ -82,6 +82,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.sonar-token-order }}
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"pradofigu_ms-maestro-pedido" /o:"pradofigu" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml          
-          dotnet-coverage collect "dotnet test OrderService/tests/OrderService.UnitTests/ --no-restore" -f xml -o "coverage.xml" 
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"pradofigu_ms-maestro-pedido" /o:"pradofigu" /d:sonar.token="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.dotcover.reportsPaths=dotCover.Output.html         
+          dotnet dotcover test OrderService/tests/OrderService.UnitTests/ --no-restore" --dcReportType=HTML
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="$SONAR_TOKEN"
