@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:      
+  maestro-db:
+    image: postgres
+    container_name: maestro-order-postgres
+    restart: always
+    ports:
+      - '62321:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dev_orderservice
+    volumes:
+      - maestro-order-db-data:/var/lib/postgresql/data   
+    networks:
+      - maestro-network
+
+  maestro-message-broker:
+    image: masstransit/rabbitmq
+    container_name: maestro-order-broker
+    restart: always
+    ports:
+      - '62320:15672' # RabbitMQ Management UI
+      - '62319:5672' # RabbitMQ Broker
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - maestro-network
+
+  maestro-jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: maestro-order-jaeger
+    ports:
+      - "62329:5775/udp"
+      - "62328:6831/udp"
+      - "62330:6832/udp"
+      - "62331:5778"
+      - "62332:16686"
+      - "62333:14250"
+      - "62334:14268"
+      - "62335:14269"
+      - "62336:9411"
+    networks:
+      - maestro-network
+        
+volumes:
+  maestro-order-db-data:
+
+networks:
+  maestro-network:
