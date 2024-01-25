@@ -10,9 +10,7 @@ on:
 env:
   STAGE: ${{ inputs.stage }}
   AWS_ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
-  AWS_SECRET_KEY: ${{ secrets.SECRET_KEY }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_ORDER }}
+  AWS_SECRET_KEY: ${{ secrets.SECRET_KEY }}  
   
 jobs:
   test:
@@ -72,8 +70,11 @@ jobs:
         run: ls -R .sonar/scanner
       - name: Install dependencies
         run: dotnet restore
-      - name: Test and Analyze        
+      - name: Test and Analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN_ORDER: ${{ secrets.SONAR_TOKEN_ORDER }}
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"pradofigu_ms-maestro-pedido" /o:"pradofigu" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"pradofigu_ms-maestro-pedido" /o:"pradofigu" /d:sonar.token="${{ secrets.SONAR_TOKEN_ORDER }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet test OrderService/tests/OrderService.UnitTests/ --no-restore --verbosity minimal
-          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ env.SONAR_TOKEN }}"
+          ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN_ORDER }}"
