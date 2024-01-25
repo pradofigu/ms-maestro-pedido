@@ -72,9 +72,8 @@ jobs:
         run: ls -R .sonar/scanner
       - name: Install dependencies
         run: dotnet restore
-      - name: Test and Analyze
-        working-directory: OrderService/tests/OrderService.UnitTests
+      - name: Test and Analyze        
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"pradofigu_ms-maestro-pedido" /o:"pradofigu" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet test --no-restore --verbosity minimal
+          dotnet test OrderService/tests/OrderService.UnitTests/ --no-restore --verbosity minimal
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ env.SONAR_TOKEN }}"
