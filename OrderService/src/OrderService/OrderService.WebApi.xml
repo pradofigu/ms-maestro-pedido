@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OrderService</name>
+    </assembly>
+    <members>
+        <member name="M:OrderService.Controllers.v1.OrdersController.AddOrder(OrderService.Domain.Orders.Dtos.OrderForCreationDto)">
+            <summary>
+            Creates a new Order record.
+            </summary>
+        </member>
+        <member name="M:OrderService.Controllers.v1.OrdersController.GetOrder(System.Guid)">
+            <summary>
+            Gets a single Order by ID.
+            </summary>
+        </member>
+        <member name="M:OrderService.Controllers.v1.OrdersController.GetOrders(OrderService.Domain.Orders.Dtos.OrderParametersDto)">
+            <summary>
+            Gets a list of all Orders.
+            </summary>
+        </member>
+        <member name="M:OrderService.Controllers.v1.OrdersController.UpdateOrder(System.Guid,OrderService.Domain.Orders.Dtos.OrderForUpdateDto)">
+            <summary>
+            Updates an entire existing Order.
+            </summary>
+        </member>
+        <member name="M:OrderService.Controllers.v1.OrdersController.DeleteOrder(System.Guid)">
+            <summary>
+            Deletes an existing Order record.
+            </summary>
+        </member>
+        <member name="M:OrderService.Databases.EntityConfigurations.OrderConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{OrderService.Domain.Orders.Order})">
+            <summary>
+            The database configuration for Orders. 
+            </summary>
+        </member>
+        <member name="M:OrderService.Databases.EntityConfigurations.OrderItemConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{OrderService.Domain.OrderItems.OrderItem})">
+            <summary>
+            The database configuration for OrderItems. 
+            </summary>
+        </member>
+        <member name="M:OrderService.Databases.EntityConfigurations.OrderPaymentConfiguration.Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder{OrderService.Domain.OrderPayments.OrderPayment})">
+            <summary>
+            The database configuration for OrderPayments. 
+            </summary>
+        </member>
+        <member name="P:OrderService.Domain.Addresses.Address.Line1">
+            <summary>
+            Address line 1 (e.g., street, PO Box, or company name).
+            </summary>
+        </member>
+        <member name="P:OrderService.Domain.Addresses.Address.Line2">
+            <summary>
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            </summary>
+        </member>
+        <member name="P:OrderService.Domain.Addresses.Address.City">
+            <summary>
+            City, district, suburb, town, or village.
+            </summary>
+        </member>
+        <member name="P:OrderService.Domain.Addresses.Address.State">
+            <summary>
+            State, county, province, or region.
+            </summary>
+        </member>
+        <member name="P:OrderService.Domain.Addresses.Address.PostalCode">
+            <summary>
+            ZIP or postal code.
+            </summary>
+        </member>
+        <member name="P:OrderService.Domain.Addresses.Address.Country">
+            <summary>
+            Two-letter country code <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">(ISO 3166-1 alpha-2)</a>.
+            </summary>
+        </member>
+        <member name="M:OrderService.Extensions.Services.WebAppServiceConfiguration.AddBoundaryServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly[])">
+            <summary>
+            Registers all services in the assembly of the given interface.
+            </summary>
+        </member>
+        <member name="T:OrderService.Migrations.InitialMigration">
+            <inheritdoc />
+        </member>
+        <member name="M:OrderService.Migrations.InitialMigration.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrderService.Migrations.InitialMigration.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:OrderService.Migrations.InitialMigration.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
