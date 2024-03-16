@@ -1,3 +1,5 @@
+using OrderService.Domain.Orders;
+
 namespace OrderService.Domain;
 
 using SharedKernel.Messages;
@@ -10,7 +12,7 @@ using OrderService.Databases;
 
 public static class OrderCreated
 {
-    public sealed record OrderCreatedCommand() : IRequest<bool>;
+    public sealed record OrderCreatedCommand(Order Order) : IRequest<bool>;
 
     public sealed class Handler : IRequestHandler<OrderCreatedCommand, bool>
     {
@@ -25,7 +27,15 @@ public static class OrderCreated
 
         public async Task<bool> Handle(OrderCreatedCommand request, CancellationToken cancellationToken)
         {
-            await _publishEndpoint.Publish<IOrderCreated>(new { });
+            await _publishEndpoint.Publish<IOrderCreated>(new
+            {
+                CorrelationId = Guid.NewGuid().ToString(),
+                OrderId = Guid.NewGuid().ToString(),
+                request.Order.Number,
+                request.Order.Status,
+                request.Order.TotalAmount,
+                request.Order.DiscountCode,
+            }, cancellationToken);
 
             return true;
         }

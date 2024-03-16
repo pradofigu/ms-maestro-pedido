@@ -17,11 +17,13 @@ public static class AddOrder
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ISender _mediator;
 
-        public Handler(IOrderRepository orderRepository, IUnitOfWork unitOfWork)
+        public Handler(IOrderRepository orderRepository, IUnitOfWork unitOfWork, ISender mediator)
         {
             _orderRepository = orderRepository;
             _unitOfWork = unitOfWork;
+            _mediator = mediator;
         }
 
         public async Task<OrderDto> Handle(Command request, CancellationToken cancellationToken)
@@ -31,7 +33,11 @@ public static class AddOrder
 
             await _orderRepository.Add(order, cancellationToken);
             await _unitOfWork.CommitChanges(cancellationToken);
-
+            
+            // To Domain Event
+            var command = new OrderCreated.OrderCreatedCommand(order);
+            await _mediator.Send(command, cancellationToken);
+            
             return order.ToOrderDto();
         }
     }

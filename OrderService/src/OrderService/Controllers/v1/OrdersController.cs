@@ -10,16 +10,8 @@ using MediatR;
 [ApiController]
 [Route("api/orders")]
 [ApiVersion("1.0")]
-public sealed class OrdersController: ControllerBase
+public sealed class OrdersController(ISender mediator) : ControllerBase
 {
-    private readonly IMediator _mediator;
-
-    public OrdersController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-    
-
     /// <summary>
     /// Creates a new Order record.
     /// </summary>
@@ -27,7 +19,7 @@ public sealed class OrdersController: ControllerBase
     public async Task<ActionResult<OrderDto>> AddOrder([FromBody]OrderForCreationDto orderForCreation)
     {
         var command = new AddOrder.Command(orderForCreation);
-        var commandResponse = await _mediator.Send(command);
+        var commandResponse = await mediator.Send(command);
 
         return CreatedAtRoute("GetOrder",
             new { orderId = commandResponse.Id },
@@ -42,7 +34,7 @@ public sealed class OrdersController: ControllerBase
     public async Task<ActionResult<OrderDto>> GetOrder(Guid orderId)
     {
         var query = new GetOrder.Query(orderId);
-        var queryResponse = await _mediator.Send(query);
+        var queryResponse = await mediator.Send(query);
         return Ok(queryResponse);
     }
 
@@ -54,7 +46,7 @@ public sealed class OrdersController: ControllerBase
     public async Task<IActionResult> GetOrders([FromQuery] OrderParametersDto orderParametersDto)
     {
         var query = new GetOrderList.Query(orderParametersDto);
-        var queryResponse = await _mediator.Send(query);
+        var queryResponse = await mediator.Send(query);
 
         var paginationMetadata = new
         {
@@ -69,8 +61,7 @@ public sealed class OrdersController: ControllerBase
             hasNext = queryResponse.HasNext
         };
 
-        Response.Headers.Add("X-Pagination",
-            JsonSerializer.Serialize(paginationMetadata));
+        Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
 
         return Ok(queryResponse);
     }
@@ -83,7 +74,7 @@ public sealed class OrdersController: ControllerBase
     public async Task<IActionResult> UpdateOrder(Guid orderId, OrderForUpdateDto order)
     {
         var command = new UpdateOrder.Command(orderId, order);
-        await _mediator.Send(command);
+        await mediator.Send(command);
         return NoContent();
     }
 
@@ -95,7 +86,7 @@ public sealed class OrdersController: ControllerBase
     public async Task<ActionResult> DeleteOrder(Guid orderId)
     {
         var command = new DeleteOrder.Command(orderId);
-        await _mediator.Send(command);
+        await mediator.Send(command);
         return NoContent();
     }
 
