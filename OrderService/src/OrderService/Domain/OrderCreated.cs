@@ -33,7 +33,7 @@ public static class OrderCreated
                 request.Order.CorrelationId,
                 request.Order.Number,
                 request.Order.Status,
-                request.Order.DiscountCode,
+                request.Order.OrderPayment.TotalAmount,
                 request.Order.OrderPayment.CardNumber,
                 request.Order.OrderPayment.CardToken,
                 request.Order.OrderPayment.CardHolderName,
