@@ -201,10 +201,6 @@ namespace OrderService.Migrations
                         .HasColumnType("text")
                         .HasColumnName("status");
 
-                    b.Property<string>("TotalAmount")
-                        .HasColumnType("text")
-                        .HasColumnName("total_amount");
-
                     b.HasKey("Id")
                         .HasName("pk_orders");
 

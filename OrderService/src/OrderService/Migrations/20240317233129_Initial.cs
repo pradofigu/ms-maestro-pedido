@@ -47,7 +47,6 @@ namespace OrderService.Migrations
                     number = table.Column<int>(type: "integer", nullable: false),
                     status = table.Column<string>(type: "text", nullable: true),
                     customer_notes = table.Column<string>(type: "text", nullable: true),
-                    total_amount = table.Column<string>(type: "text", nullable: true),
                     discount_code = table.Column<string>(type: "text", nullable: true),
                     created_on = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     created_by = table.Column<string>(type: "text", nullable: true),

@@ -25,8 +25,6 @@ public class Order : BaseEntity
 
     public string CustomerNotes { get; private set; }
 
-    public string TotalAmount { get; private set; }
-
     public string DiscountCode { get; private set; }
 
     // TODO: Temp remove DDD readonly concept
@@ -46,7 +44,6 @@ public class Order : BaseEntity
         newOrder.Number = orderForCreation.Number;
         newOrder.Status = orderForCreation.Status;
         newOrder.CustomerNotes = orderForCreation.CustomerNotes;
-        newOrder.TotalAmount = orderForCreation.TotalAmount;
         newOrder.DiscountCode = orderForCreation.DiscountCode;
         newOrder.OrderPayment = OrderPayment.Create(orderForCreation.OrderPayment);
         
@@ -63,7 +60,6 @@ public class Order : BaseEntity
         Number = orderForUpdate.Number;
         Status = orderForUpdate.Status;
         CustomerNotes = orderForUpdate.CustomerNotes;
-        TotalAmount = orderForUpdate.TotalAmount;
         DiscountCode = orderForUpdate.DiscountCode;
         OrderPayment = OrderPayment.Create(orderForUpdate.OrderPayment);
 

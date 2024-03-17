@@ -30,7 +30,6 @@ public class UpdateOrderTests
         order.Number.Should().Be(updatedOrder.Number);
         order.Status.Should().Be(updatedOrder.Status);
         order.CustomerNotes.Should().Be(updatedOrder.CustomerNotes);
-        order.TotalAmount.Should().Be(updatedOrder.TotalAmount);
         order.DiscountCode.Should().Be(updatedOrder.DiscountCode);
     }
     

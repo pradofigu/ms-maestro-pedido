@@ -8,7 +8,7 @@ namespace SharedKernel.Messages
         public Guid OrderId { get; set; }
         public int Number { get; set; }
         public string Status { get; set; }
-        public string TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
         public string DiscountCode { get; set; }
         public string CardNumber { get; set; }
         public string CardToken { get; set; }
@@ -24,7 +24,7 @@ namespace SharedKernel.Messages
         public Guid OrderId { get; set; }
         public int Number { get; set; }
         public string Status { get; set; }
-        public string TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
         public string DiscountCode { get; set; }
         public string CardNumber { get; set; }
         public string CardToken { get; set; }

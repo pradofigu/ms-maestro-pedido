@@ -30,7 +30,6 @@ public class UpdateOrderCommandTests : TestBase
         updatedOrder.Number.Should().Be(updatedOrderDto.Number);
         updatedOrder.Status.Should().Be(updatedOrderDto.Status);
         updatedOrder.CustomerNotes.Should().Be(updatedOrderDto.CustomerNotes);
-        updatedOrder.TotalAmount.Should().Be(updatedOrderDto.TotalAmount);
         updatedOrder.DiscountCode.Should().Be(updatedOrderDto.DiscountCode);
     }
 }

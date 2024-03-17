@@ -12,7 +12,7 @@ using OrderService.Databases;
 namespace OrderService.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20240317223749_Initial")]
+    [Migration("20240317233129_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -203,10 +203,6 @@ namespace OrderService.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("text")
                         .HasColumnName("status");
-
-                    b.Property<string>("TotalAmount")
-                        .HasColumnType("text")
-                        .HasColumnName("total_amount");
 
                     b.HasKey("Id")
                         .HasName("pk_orders");
