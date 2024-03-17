@@ -35,6 +35,12 @@ public static class OrderCreated
                 request.Order.Status,
                 request.Order.TotalAmount,
                 request.Order.DiscountCode,
+                request.Order.OrderPayment.CardNumber,
+                request.Order.OrderPayment.CardToken,
+                request.Order.OrderPayment.CardHolderName,
+                request.Order.OrderPayment.ExpiryDate,
+                request.Order.OrderPayment.CVV,
+                request.Order.OrderPayment.Currency,
             }, cancellationToken);
 
             return true;
