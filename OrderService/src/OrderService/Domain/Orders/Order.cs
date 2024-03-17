@@ -17,6 +17,8 @@ using OrderService.Domain.OrderPayments.Models;
 
 public class Order : BaseEntity
 {
+    public Guid CorrelationId { get; private set; }
+    
     public int Number { get; private set; }
 
     public string Status { get; private set; }
@@ -28,6 +30,7 @@ public class Order : BaseEntity
     public string DiscountCode { get; private set; }
 
     private readonly List<OrderItem> _orderItems = new();
+    
     public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
 
     public OrderPayment OrderPayment { get; private set; } = OrderPayment.Create(new OrderPaymentForCreation());
@@ -39,6 +42,7 @@ public class Order : BaseEntity
     {
         var newOrder = new Order();
 
+        newOrder.CorrelationId = Guid.NewGuid();
         newOrder.Number = orderForCreation.Number;
         newOrder.Status = orderForCreation.Status;
         newOrder.CustomerNotes = orderForCreation.CustomerNotes;

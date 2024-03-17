@@ -29,8 +29,8 @@ public static class OrderCreated
         {
             await _publishEndpoint.Publish<IOrderCreated>(new
             {
-                CorrelationId = Guid.NewGuid().ToString(),
                 OrderId = request.Order.Id,
+                request.Order.CorrelationId,
                 request.Order.Number,
                 request.Order.Status,
                 request.Order.TotalAmount,
