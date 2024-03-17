@@ -29,7 +29,8 @@ public class Order : BaseEntity
 
     public string DiscountCode { get; private set; }
 
-    private readonly List<OrderItem> _orderItems = new();
+    // TODO: Temp remove DDD readonly concept
+    private List<OrderItem> _orderItems = new();
     
     public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
 
@@ -48,6 +49,9 @@ public class Order : BaseEntity
         newOrder.TotalAmount = orderForCreation.TotalAmount;
         newOrder.DiscountCode = orderForCreation.DiscountCode;
         newOrder.OrderPayment = OrderPayment.Create(orderForCreation.OrderPayment);
+        
+        orderForCreation.OrderItem.ForEach(x => 
+            newOrder._orderItems.Add(OrderItem.Create(x)));
         
         newOrder.QueueDomainEvent(new OrderCreated(){ Order = newOrder });
         

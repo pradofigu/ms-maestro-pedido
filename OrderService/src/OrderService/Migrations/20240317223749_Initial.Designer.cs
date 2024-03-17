@@ -12,8 +12,8 @@ using OrderService.Databases;
 namespace OrderService.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20240120153359_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240317223749_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -88,9 +88,21 @@ namespace OrderService.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<decimal>("AmountPaid")
-                        .HasColumnType("numeric")
-                        .HasColumnName("amount_paid");
+                    b.Property<string>("CVV")
+                        .HasColumnType("text")
+                        .HasColumnName("cvv");
+
+                    b.Property<string>("CardHolderName")
+                        .HasColumnType("text")
+                        .HasColumnName("card_holder_name");
+
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("text")
+                        .HasColumnName("card_number");
+
+                    b.Property<string>("CardToken")
+                        .HasColumnType("text")
+                        .HasColumnName("card_token");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
@@ -99,6 +111,14 @@ namespace OrderService.Migrations
                     b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_on");
+
+                    b.Property<string>("Currency")
+                        .HasColumnType("text")
+                        .HasColumnName("currency");
+
+                    b.Property<string>("ExpiryDate")
+                        .HasColumnType("text")
+                        .HasColumnName("expiry_date");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean")
@@ -112,17 +132,21 @@ namespace OrderService.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("last_modified_on");
 
+                    b.Property<string>("Method")
+                        .HasColumnType("text")
+                        .HasColumnName("method");
+
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uuid")
                         .HasColumnName("order_id");
 
-                    b.Property<string>("PaymentMethod")
+                    b.Property<string>("Status")
                         .HasColumnType("text")
-                        .HasColumnName("payment_method");
+                        .HasColumnName("status");
 
-                    b.Property<string>("PaymentStatus")
-                        .HasColumnType("text")
-                        .HasColumnName("payment_status");
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("numeric")
+                        .HasColumnName("total_amount");
 
                     b.Property<Guid>("TransactionId")
                         .HasColumnType("uuid")
@@ -139,6 +163,10 @@ namespace OrderService.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("correlation_id");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text")
