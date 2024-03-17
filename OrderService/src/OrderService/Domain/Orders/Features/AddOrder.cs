@@ -34,7 +34,7 @@ public static class AddOrder
             await _orderRepository.Add(order, cancellationToken);
             await _unitOfWork.CommitChanges(cancellationToken);
             
-            // To Domain Event
+            //TODO: Add to Domain Event
             var command = new OrderCreated.OrderCreatedCommand(order);
             await _mediator.Send(command, cancellationToken);
             

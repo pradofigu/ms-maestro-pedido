@@ -7,6 +7,7 @@ using Destructurama.Attributed;
 
 public sealed record OrderForCreationDto
 {
+    public Guid? CorrelationId { get; set; }
     public int Number { get; set; }
     public string Status { get; set; }
     public string CustomerNotes { get; set; }

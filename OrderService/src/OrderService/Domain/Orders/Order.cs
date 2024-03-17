@@ -36,19 +36,19 @@ public class Order : BaseEntity
     public OrderPayment OrderPayment { get; private set; } = OrderPayment.Create(new OrderPaymentForCreation());
 
     // Add Props Marker -- Deleting this comment will cause the add props utility to be incomplete
-
-
+    
     public static Order Create(OrderForCreation orderForCreation)
     {
         var newOrder = new Order();
 
-        newOrder.CorrelationId = Guid.NewGuid();
+        newOrder.CorrelationId = orderForCreation.CorrelationId ?? Guid.NewGuid();
         newOrder.Number = orderForCreation.Number;
         newOrder.Status = orderForCreation.Status;
         newOrder.CustomerNotes = orderForCreation.CustomerNotes;
         newOrder.TotalAmount = orderForCreation.TotalAmount;
         newOrder.DiscountCode = orderForCreation.DiscountCode;
-
+        newOrder.OrderPayment = OrderPayment.Create(orderForCreation.OrderPayment);
+        
         newOrder.QueueDomainEvent(new OrderCreated(){ Order = newOrder });
         
         return newOrder;
@@ -61,6 +61,7 @@ public class Order : BaseEntity
         CustomerNotes = orderForUpdate.CustomerNotes;
         TotalAmount = orderForUpdate.TotalAmount;
         DiscountCode = orderForUpdate.DiscountCode;
+        OrderPayment = OrderPayment.Create(orderForUpdate.OrderPayment);
 
         QueueDomainEvent(new OrderUpdated(){ Id = Id });
         return this;
