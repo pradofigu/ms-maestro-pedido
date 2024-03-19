@@ -13,14 +13,12 @@ namespace OrderService.Domain;
 
 public sealed class PaymentCompleted : IConsumer<IPaymentCompleted>
 {
-    private readonly OrderDbContext _db;
     private readonly ISender _mediator;
-    private readonly IPublishEndpoint _publishEndpoint;
+    private readonly OrderDbContext _db;
     
-    public PaymentCompleted(ISender mediator, IPublishEndpoint publishEndpoint, OrderDbContext db)
+    public PaymentCompleted(ISender mediator, OrderDbContext db)
     {
         _mediator = mediator;
-        _publishEndpoint = publishEndpoint;
         _db = db;
     }
     
@@ -32,22 +30,7 @@ public sealed class PaymentCompleted : IConsumer<IPaymentCompleted>
         order.ChangeStatus("Em Preparo");
         
         await _db.SaveChangesAsync();
-        
-        if (context.Message.Status.Equals("Finalizada", StringComparison.CurrentCultureIgnoreCase))
-        {
-            await _publishEndpoint.Publish<IOrderPaid>(new
-            {
-                context.Message.CorrelationId,
-                order.Number,
-                Status = "Em Preparo"
-            });
-        }
-        
-        await _publishEndpoint.Publish<IOrderPaid>(new
-        {
-            context.Message.CorrelationId,
-            order.Number,
-            Status = "Cancelada"
-        });
+        var command = new OrderPaid.OrderPaidCommand(order);
+        await _mediator.Send(command);
     }
 }

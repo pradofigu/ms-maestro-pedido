@@ -42,7 +42,7 @@ public class Order : BaseEntity
 
         newOrder.CorrelationId = orderForCreation.CorrelationId ?? Guid.NewGuid();
         newOrder.Number = orderForCreation.Number;
-        newOrder.Status = orderForCreation.Status;
+        newOrder.Status = "Iniciado";
         newOrder.CustomerNotes = orderForCreation.CustomerNotes;
         newOrder.DiscountCode = orderForCreation.DiscountCode;
         newOrder.OrderPayment = OrderPayment.Create(orderForCreation.OrderPayment);

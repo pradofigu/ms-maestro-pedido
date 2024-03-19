@@ -1,11 +1,16 @@
+using System.Text.Json.Serialization;
+
 namespace OrderService.Domain.OrderPayments.Dtos;
 
 using Destructurama.Attributed;
 
 public sealed record OrderPaymentForCreationDto
 {
+    [JsonIgnore]
     public Guid OrderId { get; set; }
+    [JsonIgnore]
     public Guid TransactionId { get; set; }
+    [JsonIgnore]
     public string Status { get; set; }
     public string Method { get; set; }
     public decimal TotalAmount { get; set; }
