@@ -1,3 +1,5 @@
+using OrderService.Extensions.Services.ConsumerRegistrations;
+
 namespace OrderService.Extensions.Services;
 
 using OrderService.Resources;
@@ -43,6 +45,7 @@ public static class MassTransitServiceExtension
                     cfg.OrderCreatedEndpoint();
 
                     // Consumers -- Do Not Delete This Comment
+                    cfg.PaymentCompletedEndpoint(context);
                 });
             });
             services.AddOptions<MassTransitHostOptions>();

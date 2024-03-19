@@ -17,12 +17,10 @@ public static class OrderCreated
     public sealed class Handler : IRequestHandler<OrderCreatedCommand, bool>
     {
         private readonly IPublishEndpoint _publishEndpoint;
-        private readonly OrderDbContext _db;
 
-        public Handler(OrderDbContext db, IPublishEndpoint publishEndpoint)
+        public Handler(IPublishEndpoint publishEndpoint)
         {
             _publishEndpoint = publishEndpoint;
-            _db = db;
         }
 
         public async Task<bool> Handle(OrderCreatedCommand request, CancellationToken cancellationToken)
