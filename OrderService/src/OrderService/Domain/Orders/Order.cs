@@ -67,6 +67,13 @@ public class Order : BaseEntity
         return this;
     }
 
+    public Order ChangeStatus(string status)
+    {
+        Status = status;
+        
+        return this;
+    }
+
     public Order AddOrderItem(OrderItem orderItem)
     {
         _orderItems.Add(orderItem);
