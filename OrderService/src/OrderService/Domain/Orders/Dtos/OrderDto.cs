@@ -9,6 +9,7 @@ using Destructurama.Attributed;
 public sealed record OrderDto
 {
     public Guid Id { get; set; }
+    [JsonIgnore]
     public int Number { get; set; }
     [JsonIgnore]
     public string Status { get; set; }

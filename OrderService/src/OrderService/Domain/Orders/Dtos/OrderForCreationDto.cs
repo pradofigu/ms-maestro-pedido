@@ -11,6 +11,7 @@ public sealed record OrderForCreationDto
 {
     [JsonIgnore]
     public Guid? CorrelationId { get; set; }
+    [JsonIgnore]
     public int Number { get; set; }
     [JsonIgnore]
     public string Status { get; set; }

@@ -41,7 +41,7 @@ public class Order : BaseEntity
         var newOrder = new Order();
 
         newOrder.CorrelationId = orderForCreation.CorrelationId ?? Guid.NewGuid();
-        newOrder.Number = orderForCreation.Number;
+        newOrder.Number = new Random().Next(1, 10000);
         newOrder.Status = "Iniciado";
         newOrder.CustomerNotes = orderForCreation.CustomerNotes;
         newOrder.DiscountCode = orderForCreation.DiscountCode;
