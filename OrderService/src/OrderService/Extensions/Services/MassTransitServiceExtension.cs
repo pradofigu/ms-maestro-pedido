@@ -39,12 +39,13 @@ public static class MassTransitServiceExtension
 
                     // Producers -- Do Not Delete This Comment
                     cfg.OrderRefundedEndpoint();
-                    cfg.OrderCompletedEndpoint();
+                    // cfg.OrderCompletedEndpoint();
                     cfg.OrderPaidEndpoint();
                     cfg.OrderCanceledEndpoint();
                     cfg.OrderCreatedEndpoint();
 
                     // Consumers -- Do Not Delete This Comment
+                    cfg.OrderCompletedEndpoint(context);
                     cfg.PaymentCompletedEndpoint(context);
                     cfg.PaymentRefusedEndpoint(context);
                 });

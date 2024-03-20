@@ -5,7 +5,7 @@ using SharedKernel.Messages;
 
 namespace OrderService.Domain;
 
-public class PaymentRefused : IConsumer<IPaymentRefused>
+public sealed class PaymentRefused : IConsumer<IPaymentRefused>
 {
     private readonly ISender _mediator;
     private readonly OrderDbContext _db;
