@@ -46,6 +46,7 @@ public static class MassTransitServiceExtension
 
                     // Consumers -- Do Not Delete This Comment
                     cfg.PaymentCompletedEndpoint(context);
+                    cfg.PaymentRefusedEndpoint(context);
                 });
             });
             services.AddOptions<MassTransitHostOptions>();
