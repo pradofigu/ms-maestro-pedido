@@ -21,19 +21,19 @@ public class FakeOrderPaymentBuilder
     
     public FakeOrderPaymentBuilder WithPaymentStatus(string paymentStatus)
     {
-        _creationData.PaymentStatus = paymentStatus;
+        _creationData.Status = paymentStatus;
         return this;
     }
     
     public FakeOrderPaymentBuilder WithPaymentMethod(string paymentMethod)
     {
-        _creationData.PaymentMethod = paymentMethod;
+        _creationData.Method = paymentMethod;
         return this;
     }
     
     public FakeOrderPaymentBuilder WithAmountPaid(decimal amountPaid)
     {
-        _creationData.AmountPaid = amountPaid;
+        _creationData.TotalAmount = amountPaid;
         return this;
     }
     

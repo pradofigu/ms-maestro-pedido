@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OrderService.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,9 +17,15 @@ namespace OrderService.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     order_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    payment_status = table.Column<string>(type: "text", nullable: true),
-                    payment_method = table.Column<string>(type: "text", nullable: true),
-                    amount_paid = table.Column<decimal>(type: "numeric", nullable: false),
+                    status = table.Column<string>(type: "text", nullable: true),
+                    method = table.Column<string>(type: "text", nullable: true),
+                    card_number = table.Column<string>(type: "text", nullable: true),
+                    card_token = table.Column<string>(type: "text", nullable: true),
+                    card_holder_name = table.Column<string>(type: "text", nullable: true),
+                    expiry_date = table.Column<string>(type: "text", nullable: true),
+                    cvv = table.Column<string>(type: "text", nullable: true),
+                    currency = table.Column<string>(type: "text", nullable: true),
+                    total_amount = table.Column<decimal>(type: "numeric", nullable: false),
                     transaction_id = table.Column<Guid>(type: "uuid", nullable: false),
                     created_on = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     created_by = table.Column<string>(type: "text", nullable: true),
@@ -37,10 +43,10 @@ namespace OrderService.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
+                    correlation_id = table.Column<Guid>(type: "uuid", nullable: false),
                     number = table.Column<int>(type: "integer", nullable: false),
                     status = table.Column<string>(type: "text", nullable: true),
                     customer_notes = table.Column<string>(type: "text", nullable: true),
-                    total_amount = table.Column<string>(type: "text", nullable: true),
                     discount_code = table.Column<string>(type: "text", nullable: true),
                     created_on = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     created_by = table.Column<string>(type: "text", nullable: true),

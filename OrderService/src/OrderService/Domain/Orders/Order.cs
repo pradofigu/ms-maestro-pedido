@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 namespace OrderService.Domain.Orders;
 
 using System.ComponentModel.DataAnnotations;
@@ -17,34 +19,39 @@ using OrderService.Domain.OrderPayments.Models;
 
 public class Order : BaseEntity
 {
+    public Guid CorrelationId { get; private set; }
+    
     public int Number { get; private set; }
 
     public string Status { get; private set; }
 
     public string CustomerNotes { get; private set; }
 
-    public string TotalAmount { get; private set; }
-
     public string DiscountCode { get; private set; }
 
-    private readonly List<OrderItem> _orderItems = new();
+    // TODO: Temp remove DDD readonly concept
+    private List<OrderItem> _orderItems = new();
+    
     public IReadOnlyCollection<OrderItem> OrderItems => _orderItems.AsReadOnly();
 
     public OrderPayment OrderPayment { get; private set; } = OrderPayment.Create(new OrderPaymentForCreation());
 
     // Add Props Marker -- Deleting this comment will cause the add props utility to be incomplete
-
-
+    
     public static Order Create(OrderForCreation orderForCreation)
     {
         var newOrder = new Order();
 
-        newOrder.Number = orderForCreation.Number;
-        newOrder.Status = orderForCreation.Status;
+        newOrder.CorrelationId = orderForCreation.CorrelationId ?? Guid.NewGuid();
+        newOrder.Number = RandomNumberGenerator.GetInt32(1, 1000);
+        newOrder.Status = "Iniciado";
         newOrder.CustomerNotes = orderForCreation.CustomerNotes;
-        newOrder.TotalAmount = orderForCreation.TotalAmount;
         newOrder.DiscountCode = orderForCreation.DiscountCode;
-
+        newOrder.OrderPayment = OrderPayment.Create(orderForCreation.OrderPayment);
+        
+        orderForCreation.OrderItem.ForEach(x => 
+            newOrder._orderItems.Add(OrderItem.Create(x)));
+        
         newOrder.QueueDomainEvent(new OrderCreated(){ Order = newOrder });
         
         return newOrder;
@@ -55,10 +62,17 @@ public class Order : BaseEntity
         Number = orderForUpdate.Number;
         Status = orderForUpdate.Status;
         CustomerNotes = orderForUpdate.CustomerNotes;
-        TotalAmount = orderForUpdate.TotalAmount;
         DiscountCode = orderForUpdate.DiscountCode;
+        OrderPayment = OrderPayment.Create(orderForUpdate.OrderPayment);
 
         QueueDomainEvent(new OrderUpdated(){ Id = Id });
+        return this;
+    }
+
+    public Order ChangeStatus(string status)
+    {
+        Status = status;
+        
         return this;
     }
 

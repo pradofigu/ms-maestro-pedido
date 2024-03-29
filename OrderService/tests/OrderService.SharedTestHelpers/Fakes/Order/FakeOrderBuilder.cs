@@ -31,12 +31,6 @@ public class FakeOrderBuilder
         return this;
     }
     
-    public FakeOrderBuilder WithTotalAmount(string totalAmount)
-    {
-        _creationData.TotalAmount = totalAmount;
-        return this;
-    }
-    
     public FakeOrderBuilder WithDiscountCode(string discountCode)
     {
         _creationData.DiscountCode = discountCode;

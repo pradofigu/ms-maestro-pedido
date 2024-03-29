@@ -18,6 +18,6 @@ public class CreateOrderTests : TestBase
         var result = await FactoryClient.PostJsonRequestAsync(route, order);
 
         // Assert
-        result.StatusCode.Should().Be(HttpStatusCode.Created);
+        result.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
     }
 }

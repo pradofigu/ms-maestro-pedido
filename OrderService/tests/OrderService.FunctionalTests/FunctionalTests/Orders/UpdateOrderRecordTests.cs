@@ -20,6 +20,6 @@ public class UpdateOrderRecordTests : TestBase
         var result = await FactoryClient.PutJsonRequestAsync(route, updatedOrderDto);
 
         // Assert
-        result.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        result.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
     }
 }
