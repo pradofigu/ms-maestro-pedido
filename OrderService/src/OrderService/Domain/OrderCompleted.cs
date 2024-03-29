@@ -8,26 +8,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using OrderService.Databases;
 
-public static class OrderCompleted
+public class OrderCompleted : IConsumer<IOrderCompleted>
 {
-    public sealed record OrderCompletedCommand() : IRequest<bool>;
+    private readonly OrderDbContext _db;
 
-    public sealed class Handler : IRequestHandler<OrderCompletedCommand, bool>
+    public OrderCompleted(OrderDbContext db)
     {
-        private readonly IPublishEndpoint _publishEndpoint;
-        private readonly OrderDbContext _db;
+        _db = db;
+    }
 
-        public Handler(OrderDbContext db, IPublishEndpoint publishEndpoint)
-        {
-            _publishEndpoint = publishEndpoint;
-            _db = db;
-        }
-
-        public async Task<bool> Handle(OrderCompletedCommand request, CancellationToken cancellationToken)
-        {
-            await _publishEndpoint.Publish<IOrderCompleted>(new { });
-
-            return true;
-        }
+    public async Task Consume(ConsumeContext<IOrderCompleted> context)
+    {
+        var order = _db.Orders
+            .First(x => x.CorrelationId == context.Message.CorrelationId);
+        
+        order.ChangeStatus(context.Message.Status);
+        
+        await _db.SaveChangesAsync();
     }
 }

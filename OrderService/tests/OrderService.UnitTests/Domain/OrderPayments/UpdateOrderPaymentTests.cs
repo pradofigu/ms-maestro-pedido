@@ -28,9 +28,9 @@ public class UpdateOrderPaymentTests
 
         // Assert
         orderPayment.OrderId.Should().Be(updatedOrderPayment.OrderId);
-        orderPayment.PaymentStatus.Should().Be(updatedOrderPayment.PaymentStatus);
-        orderPayment.PaymentMethod.Should().Be(updatedOrderPayment.PaymentMethod);
-        orderPayment.AmountPaid.Should().Be(updatedOrderPayment.AmountPaid);
+        orderPayment.Status.Should().Be(updatedOrderPayment.Status);
+        orderPayment.Method.Should().Be(updatedOrderPayment.Method);
+        orderPayment.TotalAmount.Should().Be(updatedOrderPayment.TotalAmount);
         orderPayment.TransactionId.Should().Be(updatedOrderPayment.TransactionId);
     }
     

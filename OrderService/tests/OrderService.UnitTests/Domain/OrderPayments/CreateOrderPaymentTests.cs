@@ -27,9 +27,9 @@ public class CreateOrderPaymentTests
 
         // Assert
         orderPayment.OrderId.Should().Be(orderPaymentToCreate.OrderId);
-        orderPayment.PaymentStatus.Should().Be(orderPaymentToCreate.PaymentStatus);
-        orderPayment.PaymentMethod.Should().Be(orderPaymentToCreate.PaymentMethod);
-        orderPayment.AmountPaid.Should().Be(orderPaymentToCreate.AmountPaid);
+        orderPayment.Status.Should().Be(orderPaymentToCreate.Status);
+        orderPayment.Method.Should().Be(orderPaymentToCreate.Method);
+        orderPayment.TotalAmount.Should().Be(orderPaymentToCreate.TotalAmount);
         orderPayment.TransactionId.Should().Be(orderPaymentToCreate.TransactionId);
     }
 

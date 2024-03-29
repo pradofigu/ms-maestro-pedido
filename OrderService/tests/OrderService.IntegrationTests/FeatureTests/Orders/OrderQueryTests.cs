@@ -25,7 +25,6 @@ public class OrderQueryTests : TestBase
         order.Number.Should().Be(orderOne.Number);
         order.Status.Should().Be(orderOne.Status);
         order.CustomerNotes.Should().Be(orderOne.CustomerNotes);
-        order.TotalAmount.Should().Be(orderOne.TotalAmount);
         order.DiscountCode.Should().Be(orderOne.DiscountCode);
     }
 

@@ -1,15 +1,18 @@
 namespace SharedKernel.Messages
 {
     using System;
-    using System.Text;
 
     public interface IOrderPaid
     {
-        public Guid OrderId { get; set; }
+        public Guid CorrelationId { get; set; }
+        public int Number { get; set; }
+        public string Status { get; set; }
     }
 
     public class OrderPaid : IOrderPaid
     {
-        public Guid OrderId { get; set; }
+        public Guid CorrelationId { get; set; }
+        public int Number { get; set; }
+        public string Status { get; set; }
     }
 }

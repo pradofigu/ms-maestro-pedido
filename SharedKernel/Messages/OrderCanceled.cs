@@ -1,15 +1,18 @@
 namespace SharedKernel.Messages
 {
     using System;
-    using System.Text;
 
     public interface IOrderCanceled
     {
-        public Guid OrderId { get; set; }
+        public Guid CorrelationId { get; set; }
+        public int Number { get; set; }
+        public string Status { get; set; }
     }
 
     public class OrderCanceled : IOrderCanceled
     {
-        public Guid OrderId { get; set; }
+        public Guid CorrelationId { get; set; }
+        public int Number { get; set; }
+        public string Status { get; set; }
     }
 }
