@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 namespace OrderService.Domain.Orders;
 
 using System.ComponentModel.DataAnnotations;
@@ -41,7 +43,7 @@ public class Order : BaseEntity
         var newOrder = new Order();
 
         newOrder.CorrelationId = orderForCreation.CorrelationId ?? Guid.NewGuid();
-        newOrder.Number = new Random().Next(1, 10000);
+        newOrder.Number = RandomNumberGenerator.GetInt32(1, 1000);
         newOrder.Status = "Iniciado";
         newOrder.CustomerNotes = orderForCreation.CustomerNotes;
         newOrder.DiscountCode = orderForCreation.DiscountCode;
